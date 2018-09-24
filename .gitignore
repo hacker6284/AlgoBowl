@@ -2,4 +2,17 @@
 a.out
 *.html
 *.xcodeproj
+.DS_Store
+.Trashes
+*.swp
+*.lock
+DerivedData/
+build/
+.xccheckout
+xcuserdata/
+*.moved-aside
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
 
