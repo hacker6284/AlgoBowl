@@ -45,7 +45,7 @@ void algoBowlInput(){
     fout << n <<  " " << m;
 
     for(int k = 0; k < n; k++){
-        startTime = rand() % 50;            //start time can range from zero to fifty
+        startTime = rand() % 51;            //start time can range from zero to fifty
         station1 = (rand() % 50) + 1;       //add 1 after the modulus to prevent job time of 0
         station2 = (rand() % 50) + 1;
         station3 = (rand() % 50) + 1;
