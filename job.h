@@ -19,5 +19,4 @@ public:
   bool *getCompletedStations();
   bool getCompletedStation(int station);
   int getCurrentJob();
-
-}
+};
