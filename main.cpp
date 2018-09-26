@@ -16,10 +16,12 @@ int main() {
 
 //function to test output files
 
-void outputTester(){
+bool outputTester(){
     //TODO: overall completion time >= max(sum job-times at each work station)
     //TODO: job start time at each station >= job available time
     //TODO: job working time at each station is unique, i.e. no overlaps
+    
+    return true;
 }
 
 
