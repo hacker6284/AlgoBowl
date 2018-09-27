@@ -19,7 +19,9 @@ int main() {
   if(!ifin.is_open()) cout << "Error opening input file" << endl;
 
   int numJobs;
+  int numStations;
   ifin >> numJobs;
+  ifin >> numStations;
   int startTimes[numJobs-1];
   int workStation1Duration[numJobs-1];
   int workStation2Duration[numJobs-1];
@@ -29,6 +31,10 @@ int main() {
     ifin >> workStation2Duration[i];
     //cout << startTimes[i] << " " << workStation1Duration[i] << " " << workStation2Duration[i] << endl;
   }
+  ifin.close();
+  //for(int i = 1; i <= numJobs; i++){
+
+  //}
 
 
 
