@@ -10,7 +10,30 @@ bool outputTester();
 
 int main() {
   cout << "Hello, world!" << endl;
-  algoBowlInput();
+  //algoBowlInput();
+
+
+  //Reading In Info
+  ifstream ifin;
+  ifin.open("test2stations.txt");
+  if(!ifin.is_open()) cout << "Error opening input file" << endl;
+
+  int numJobs;
+  ifin >> numJobs;
+  int startTimes[numJobs-1];
+  int workStation1Duration[numJobs-1];
+  int workStation2Duration[numJobs-1];
+  for(int i = 1; i <= numJobs; i++){
+    ifin >> startTimes[i];
+    ifin >> workStation1Duration[i];
+    ifin >> workStation2Duration[i];
+    //cout << startTimes[i] << " " << workStation1Duration[i] << " " << workStation2Duration[i] << endl;
+  }
+
+
+
+
+  //algoBowlSolution();
   return 0;
 }
 
@@ -24,11 +47,11 @@ bool outputTester(){
     ofin.open("twoStationOut.txt");
     if(!ifin.is_open()) cout << "Error opening input file" << endl;
     if(!ofin.is_open()) cout << "Error opening solution file" << endl;
-       
-       
+
+
     //TODO: job start time at each station >= job available time
     //TODO: job working time at each station is unique, i.e. no overlaps
-    
+
     return true;
 }
 
