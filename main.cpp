@@ -18,6 +18,14 @@ int main() {
 
 bool outputTester(){
     //TODO: overall completion time >= max(sum job-times at each work station)
+    int sum1(0), sum2(0), sum3(0);
+    ifstream ifin, ofin;
+    ifin.open("test2stations.txt");
+    ofin.open("twoStationOut.txt");
+    if(!ifin.is_open()) cout << "Error opening input file" << endl;
+    if(!ofin.is_open()) cout << "Error opening solution file" << endl;
+       
+       
     //TODO: job start time at each station >= job available time
     //TODO: job working time at each station is unique, i.e. no overlaps
     
