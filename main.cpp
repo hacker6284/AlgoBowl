@@ -1,4 +1,4 @@
-#include "job.h"
+#include "job.cpp"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -17,14 +17,13 @@ int main() {
   ifstream ifin;
   ifin.open("test2stations.txt");
   if(!ifin.is_open()) cout << "Error opening input file" << endl;
-
   int numJobs;
   int numStations;
   ifin >> numJobs;
   ifin >> numStations;
-  int startTimes[numJobs-1];
-  int workStation1Duration[numJobs-1];
-  int workStation2Duration[numJobs-1];
+  int startTimes[numJobs];
+  int workStation1Duration[numJobs];
+  int workStation2Duration[numJobs];
   for(int i = 1; i <= numJobs; i++){
     ifin >> startTimes[i];
     ifin >> workStation1Duration[i];
@@ -32,16 +31,22 @@ int main() {
     //cout << startTimes[i] << " " << workStation1Duration[i] << " " << workStation2Duration[i] << endl;
   }
   ifin.close();
-  //for(int i = 1; i <= numJobs; i++){
-
-  //}
 
 
-
+  //Creating an array of jobs
+  job jobArray[numJobs-1];
+  for(int i = 1; i <= numJobs; i++){
+    job newJob(startTimes[i], workStation1Duration[i], workStation2Duration[i]);
+    jobArray[i] = newJob;
+    //cout << jobArray[i].getAvailableTime();
+  }
 
   //algoBowlSolution();
   return 0;
 }
+
+
+
 
 //function to test output files
 

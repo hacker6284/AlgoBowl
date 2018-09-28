@@ -1,22 +1,25 @@
 #include <iostream>
-
+#pragma once
 using namespace std;
 
-class job{
+class job {
 private:
+
   int availableTime;
-  int *stationTimes;
-  bool *completedStations;
-  int currentJob;
+  int stationTimes[2];
+  bool completedStations[2] = {false, false};
+  //int currentJob;
+  int stationCompTimes[2] = {100000000, 100000000}; //Time Job was completed on a given station
 
 public:
-  void setAvailableTime(int time);
-  void setStationTimes(int *times);
-
+  //void setAvailableTime(int time);
+  //void setStationTimes(int *times);
+  job();
+  job(int t, int st1, int st2);
   int getAvailableTime();
   int *getStationTimes();
-  int getStationTime(int station);
+  //int getStationTime(int station);
   bool *getCompletedStations();
-  bool getCompletedStation(int station);
-  int getCurrentJob();
+  //bool getCompletedStation(int station);
+  //int getCurrentJob();
 };
