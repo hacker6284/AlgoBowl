@@ -9,7 +9,7 @@ private:
   int stationTimes[3];
   bool completedStations[3] = {false, false, false};
   //int currentJob;
-  int stationCompTimes[2] = {100000000, 100000000, 100000000}; //Time Job was completed on a given station
+  int stationCompTimes[3] = {100000000, 100000000, 100000000}; //Time Job was completed on a given station
 
 public:
   //void setAvailableTime(int time);

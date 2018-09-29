@@ -1,14 +1,16 @@
-#include "job.cpp"
+#include "job.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 void algoBowlInput();
 bool outputTester();
-int algoBowlSolution();
+int algoBowlSolution(job *jobArrayUnsorted, int length);
+bool compareJobStartTimes(job *job1,job *job2);
 
 int main() {
   cout << "Hello, world!" << endl;
@@ -32,22 +34,22 @@ int main() {
     ifin >> startTimes[i];
     ifin >> workStation1Duration[i];
     ifin >> workStation2Duration[i];
-    ifin >> workStation2Duration[i];
+    ifin >> workStation3Duration[i];
     //cout << startTimes[i] << " " << workStation1Duration[i] << " " << workStation2Duration[i] << endl;
   }
   ifin.close();
 
 
   //Creating an array of jobs
-  job jobArray[numJobs-1];
-  for(int i = 1; i <= numJobs; i++){
+  job jobArray[numJobs];
+  for(int i = 1; i < numJobs; i++){
     job newJob(startTimes[i], workStation1Duration[i], workStation2Duration[i], workStation3Duration[i]);
     jobArray[i] = newJob;
-    cout << jobArray[i].getAvailableTime();
+    //cout << jobArray[i].getAvailableTime();
   }
 
   //Solution Generator
-  int solnTime = algoBowlSolution(newJob&);
+  int solnTime = algoBowlSolution(jobArray, numJobs-1);
 
   //Solution Printer
   //double nested loop
@@ -58,14 +60,29 @@ int main() {
   return 0;
 }
 
-int algoBowlSolution(job *jobArrayUnsorted){
+bool compareJobStartTimes(job *job1,job *job2){
+  if(job1->getAvailableTime()<job2->getAvailableTime()){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
 
-  job *jobArraySorted[jobArrayUnsorted.size()];
+int algoBowlSolution(job *jobArrayUnsorted, int length){
 
-  for (int i = 0; i < jobArrayUnsorted.size(); i++){
-    jobArraySorted[i] = jobArrayUnsorted[i]&;
+  vector<job*> jobArraySorted(length);
+
+  for (int i = 0; i < length; i++){
+    jobArraySorted[i] = &jobArrayUnsorted[i];
+  }
+  sort(jobArraySorted.begin(), jobArraySorted.end(), compareJobStartTimes);
+
+  for(int i = 0; i < 100; i++){
+    cout << jobArraySorted[i] << " vs. " << jobArraySorted[i]->getAvailableTime() << endl;
   }
 
+  int timeToComplete = 0;
   return timeToComplete;
 }
 
