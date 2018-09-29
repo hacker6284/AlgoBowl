@@ -41,7 +41,7 @@ int main() {
 
 
   //Creating an array of jobs
-  job jobArray[numJobs];
+  job *jobArray = new job[numJobs];
   for(int i = 1; i < numJobs; i++){
     job newJob(startTimes[i], workStation1Duration[i], workStation2Duration[i], workStation3Duration[i]);
     jobArray[i] = newJob;
@@ -57,6 +57,7 @@ int main() {
   //Verifier
   outputTester();
 
+  delete [] jobArray;
   return 0;
 }
 
@@ -137,6 +138,7 @@ int algoBowlSolution(job *jobArrayUnsorted, int length){
       workstations[currentStation - 1]++;
     }
   }
+
 
   int timeToComplete = 0;
   return timeToComplete;
