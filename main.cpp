@@ -21,7 +21,7 @@ int main() {
   //Reading In Info
   ifstream ifin;
   ifin.open("test3stations.txt");
-  if(!ifin.is_open()) cout << "Error opening input file" << endl;
+  if(!ifin.is_open()) cout << "Error opening input file initial" << endl;
   int numJobs;
   int numStations;
   ifin >> numJobs;
@@ -30,7 +30,7 @@ int main() {
   int workStation1Duration[numJobs];
   int workStation2Duration[numJobs];
   int workStation3Duration[numJobs];
-  for(int i = 1; i <= numJobs; i++){
+  for(int i = 0; i < numJobs; i++){
     ifin >> startTimes[i];
     ifin >> workStation1Duration[i];
     ifin >> workStation2Duration[i];
@@ -42,7 +42,7 @@ int main() {
 
   //Creating an array of jobs
   job *jobArray = new job[numJobs];
-  for(int i = 1; i < numJobs; i++){
+  for(int i = 0; i < numJobs; i++){
     job newJob(startTimes[i], workStation1Duration[i], workStation2Duration[i], workStation3Duration[i]);
     jobArray[i] = newJob;
     //cout << jobArray[i].getAvailableTime();
@@ -52,6 +52,10 @@ int main() {
   int solnTime = algoBowlSolution(jobArray, numJobs-1);
 
   //Solution Printer
+    ofstream fout;
+    fout.open("solution.txt");
+    if (!fout.is_open()) cout << "Error opening output file" << endl;
+
   //double nested loop
   fout << solnTime << endl;
   for (int i = 0; i < numJobs; i++){
@@ -173,9 +177,9 @@ bool outputTester(){
 
     //open input file as ifin, open solution file as ofin
     ifstream ifin, ofin;
-    ifin.open("input_group29.txt");
+    ifin.open("test3stations.txt");
     ofin.open("solution.txt");
-    if(!ifin.is_open()) cout << "Error opening input file" << endl;
+    if(!ifin.is_open()) cout << "Error opening input file verify" << endl;
     if(!ofin.is_open()) cout << "Error opening solution file" << endl;
 
     //store job number, total workstations, and completion time
@@ -194,16 +198,19 @@ bool outputTester(){
         //No job working both stations at the same time
         int a = min(st1, st2);
         int b = min(a, st3);
-        if(b == st1 && (st1 + work1) > st2){ cout << "Invalid: job " << i <<" overlap at station 1 & 2" << endl; return false;}
-        if(b == st1 && (st1 + work1) > st3){ cout << "Invalid: job " << i <<" overlap at station 1 & 3" << endl; return false;}
-        if(b == st2 && (st2 + work2) > st1){ cout << "Invalid: job " << i <<" overlap at station 2 & 1" << endl; return false;}
-        if(b == st2 && (st2 + work2) > st3){ cout << "Invalid: job " << i <<" overlap at station 2 & 3" << endl; return false;}
-        if(b == st3 && (st3 + work3) > st1){ cout << "Invalid: job " << i <<" overlap at station 3 & 1" << endl; return false;}
-        if(b == st3 && (st3 + work3) > st2){ cout << "Invalid: job " << i <<" overlap at station 3 & 2" << endl; return false;}
+        if(b == st1 && (st1 + work1) > st2){ cout << "Invalid: job " << (i + 1) <<" overlap at station 1 & 2" << endl; return false;}
+        if(b == st1 && (st1 + work1) > st3){ cout << "Invalid: job " << (i + 1) <<" overlap at station 1 & 3" << endl; return false;}
+        if(b == st2 && (st2 + work2) > st1){ cout << "Invalid: job " << (i + 1) <<" overlap at station 2 & 1" << endl; return false;}
+        if(b == st2 && (st2 + work2) > st3){ cout << "Invalid: job " << (i + 1) <<" overlap at station 2 & 3" << endl; return false;}
+        if(b == st3 && (st3 + work3) > st1){ cout << "Invalid: job " << (i + 1) <<" overlap at station 3 & 1" << endl; return false;}
+        if(b == st3 && (st3 + work3) > st2){ cout << "Invalid: job " << (i + 1) <<" overlap at station 3 & 2" << endl; return false;}
 
 
         //job start time at each station >= job available time
-        if(st1 < availTime || st2 < availTime || st3 < availTime) {  cout << "Ivalid: Job " << i << " starts before available" << endl; return false;}
+        if (i > 210 && i < 215){
+            cout << availTime << " " << st1 << " " << st2 << " " << st3 << endl;
+        }
+        if(st1 < availTime || st2 < availTime || st3 < availTime) {  cout << "Ivalid: Job " << (i + 1) << " starts before available" << endl; return false;}
 
         //store start times, with corresponding working times, we'll sort these later to make sure no jobs overlap at a single station
         stStation1[i][0] = st1;
