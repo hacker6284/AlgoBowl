@@ -149,8 +149,12 @@ int algoBowlSolution(job *jobArrayUnsorted, int length){
     }
   }
 
-
   int timeToComplete = 0;
+  for (int i = 0; i < 3; i++){
+    if (workstations[i] > timeToComplete){
+      timeToComplete = workstations[i];
+    }
+  }
   return timeToComplete;
 }
 
