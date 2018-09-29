@@ -96,7 +96,8 @@ int algoBowlSolution(job *jobArrayUnsorted, int length){
     }
 
     bool noJobs = true;
-    for (job* j: jobArraySorted){
+    for (int m = 0; m < jobArraySorted.size(); m++){
+      job *j = jobArraySorted[m];
       //Make sure available
       if (j->getAvailableTime() > workstations[currentStation-1]){
         //job not available yet.
@@ -132,6 +133,15 @@ int algoBowlSolution(job *jobArrayUnsorted, int length){
         j->setCompletedStations(currentStation-1, true);
         j->setStationCompTimes(currentStation-1, workstations[currentStation - 1]);
         workstations[currentStation-1] = workstations[currentStation-1]+j->getStationTimes()[currentStation - 1];
+        bool allDone = true;
+        for (int b = 0; b < 3; b++){
+          if (j->getCompletedStations()[b] == false){
+            allDone = false;
+          }
+        }
+        if (allDone){
+          jobArraySorted.erase(jobArraySorted.begin()+m);
+        }
       }
     }
     if (noJobs){
