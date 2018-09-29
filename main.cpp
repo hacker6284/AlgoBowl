@@ -53,6 +53,13 @@ int main() {
 
   //Solution Printer
   //double nested loop
+  fout << solnTime << endl;
+  for (int i = 0; i < numJobs; i++){
+    for (int j = 0; j < 3; j++){
+      fout << jobArray[i].getStationCompTimes()[j] << " ";
+    }
+    fout << endl;
+  }
 
   //Verifier
   outputTester();
