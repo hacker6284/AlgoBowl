@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -42,6 +43,8 @@ int main() {
   }
 
   //algoBowlSolution();
+  algoBowlInput();
+  outputTester();
   return 0;
 }
 
@@ -51,17 +54,51 @@ int main() {
 //function to test output files
 
 bool outputTester(){
-    //TODO: overall completion time >= max(sum job-times at each work station)
-    int sum1(0), sum2(0), sum3(0);
+    //TODO: No jobs overlapping at a single station
+    
+    int sum1(0), sum2(0), sum3(0), jobNumber(0), workstationNumber(0), completionTime(0);
+    
+    //open input file as ifin, open solution file as ofin
     ifstream ifin, ofin;
     ifin.open("test2stations.txt");
     ofin.open("twoStationOut.txt");
     if(!ifin.is_open()) cout << "Error opening input file" << endl;
     if(!ofin.is_open()) cout << "Error opening solution file" << endl;
-
-
-    //TODO: job start time at each station >= job available time
-    //TODO: job working time at each station is unique, i.e. no overlaps
+    
+    //store job number, total workstations, and completion time
+    ifin >> jobNumber >> workstationNumber;
+    ofin >> completionTime;
+    
+    int availTime(0), work1(0), work2(0), st1(0), st2(0);
+    vector<int> startTimes(jobNumber);
+    
+    for(int i = 0; i < jobNumber; i++){
+        ifin >> availTime >> work1 >> work2;
+        ofin >> st1 >> st2;
+        
+        //No job working both stations at the same time
+        int a = min(st1, st2);
+        if(a == st1 && (st1 + work1) >= st2){ cout << "Invalid: jobs overlap" << endl; return false;}
+        if(a == st2 && (st2 + work2) >= st1){ cout << "Invalid: jobs overlap b" << endl; return false;}
+        
+        //job start time at each station >= job available time
+        if(st1 < availTime || st2 < availTime) {  cout << "Ivalid: Job starts before available" << endl; return false;}
+        startTimes[i] = availTime;
+        sum1 += work1;
+        sum2 += work2;
+    }
+    
+    //cout << completionTime << " " << sum1 << " " << sum2 << endl;
+    //for(int z : startTimes){cout << z << endl;}
+    
+    //overall completion time >= max(sum job-times at each work station)
+    if(completionTime < sum1 || completionTime < sum2){ cout << "Invalid: completed before slowest station time" << endl; return false;}
+    
+    
+    ifin.close();
+    ofin.close();
+    
+    cout <<  "Valid solution" << endl;
 
     return true;
 }
