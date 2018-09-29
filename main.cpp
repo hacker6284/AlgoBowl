@@ -60,6 +60,7 @@ int main() {
   return 0;
 }
 
+//Function to compare job start times
 bool compareJobStartTimes(job *job1,job *job2){
   if(job1->getAvailableTime()<job2->getAvailableTime()){
     return true;
@@ -69,6 +70,7 @@ bool compareJobStartTimes(job *job1,job *job2){
   }
 }
 
+//Solution Generator, returns the time to completion and edits the array of vector of jobs
 int algoBowlSolution(job *jobArrayUnsorted, int length){
 
   vector<job*> jobArraySorted(length);
@@ -78,8 +80,62 @@ int algoBowlSolution(job *jobArrayUnsorted, int length){
   }
   sort(jobArraySorted.begin(), jobArraySorted.end(), compareJobStartTimes);
 
-  for(int i = 0; i < 100; i++){
-    cout << jobArraySorted[i] << " vs. " << jobArraySorted[i]->getAvailableTime() << endl;
+  int workstations[3] = {0, 0, 0};
+
+  while (jobArraySorted.size() > 0){
+    int currentStation = 0;
+    if (workstations[0] <= workstations[1] && workstations[0] <= workstations[2]){
+      currentStation = 1;
+    }
+    else if(workstations[1]<=workstations[2]){
+      currentStation = 2;
+    }
+    else{
+      currentStation = 3;
+    }
+
+    bool noJobs = true;
+    for (job* j: jobArraySorted){
+      //Make sure available
+      if (j->getAvailableTime() > workstations[currentStation-1]){
+        //job not available yet.
+        continue;
+      }
+
+      //Make sure not completed
+      else if (j->getCompletedStations()[currentStation - 1]){
+        //job has been completed at this station
+        continue;
+      }
+
+      //Make sure no overlaps
+      bool overlap = false;
+      for (int k = 0; k < 3; k++){
+        if (j->getStationCompTimes()[k] != -1 && workstations[currentStation -1] > j->getStationCompTimes()[k] && workstations[currentStation - 1] < j->getStationCompTimes()[k] + j->getStationTimes()[k]){
+          //job will start at a time where it is being worked on at anothe station
+          overlap = true;
+          break;
+        }
+        else if(j->getStationCompTimes()[k] != -1 && workstations[currentStation -1] + j->getStationTimes()[k] > j->getStationCompTimes()[k] && workstations[currentStation - 1] + j->getStationTimes()[k] < j->getStationCompTimes()[k] + j->getStationTimes()[k]){
+          //job will finish after it is started on another station
+          overlap = true;
+          break;
+        }
+      }
+      if (overlap){
+        //job overlaps
+        continue;
+      }
+      else{
+        //we can do this job
+        j->setCompletedStations(currentStation-1, true);
+        j->setStationCompTimes(currentStation-1, workstations[currentStation - 1]);
+        workstations[currentStation-1] = workstations[currentStation-1]+j->getStationTimes()[currentStation - 1];
+      }
+    }
+    if (noJobs){
+      workstations[currentStation - 1]++;
+    }
   }
 
   int timeToComplete = 0;

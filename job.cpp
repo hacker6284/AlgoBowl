@@ -23,3 +23,15 @@ int* job::getStationTimes(){
 bool* job::getCompletedStations(){
   return completedStations;
 }
+
+int* job::getStationCompTimes(){
+   return stationCompTimes;
+}
+
+void job::setCompletedStations(int station, bool status){
+  completedStations[station] = status;
+}
+
+void job::setStationCompTimes(int station, int comptime){
+  stationCompTimes[station] = comptime;
+}
