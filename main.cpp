@@ -49,7 +49,7 @@ int main() {
   }
 
   //Solution Generator
-  int solnTime = algoBowlSolution(jobArray, numJobs-1);
+  int solnTime = algoBowlSolution(jobArray, numJobs);
 
   //Solution Printer
     ofstream fout;
