@@ -124,13 +124,23 @@ int algoBowlSolution(job *jobArrayUnsorted, int length){
       //Make sure no overlaps
       bool overlap = false;
       for (int k = 0; k < 3; k++){
-        if (j->getStationCompTimes()[k] != -1 && workstations[currentStation -1] > j->getStationCompTimes()[k] && workstations[currentStation - 1] < j->getStationCompTimes()[k] + j->getStationTimes()[k]){
+        if (j->getStationCompTimes()[k] != -1 && workstations[currentStation - 1] > j->getStationCompTimes()[k] && workstations[currentStation - 1] < j->getStationCompTimes()[k] + j->getStationTimes()[k]){
           //job will start at a time where it is being worked on at anothe station
           overlap = true;
           break;
         }
-        else if(j->getStationCompTimes()[k] != -1 && workstations[currentStation -1] + j->getStationTimes()[k] > j->getStationCompTimes()[k] && workstations[currentStation - 1] + j->getStationTimes()[k] < j->getStationCompTimes()[k] + j->getStationTimes()[k]){
+        else if (j->getStationCompTimes()[k] != -1 && workstations[currentStation - 1] + j->getStationTimes()[k] > j->getStationCompTimes()[k] && workstations[currentStation -1] + j->getStationTimes()[k] < j->getStationCompTimes()[k] + j->getStationTimes()[k]){
           //job will finish after it is started on another station
+          overlap = true;
+          break;
+        }
+        else if (j->getStationCompTimes()[k] != -1 && workstations[currentStation - 1] >= j->getStationCompTimes()[k] && workstations[currentStation - 1] + j->getStationTimes()[k] <= j->getStationCompTimes()[k] + j->getStationTimes()[k]){
+          //job will be entirely contained within another job
+          overlap = true;
+          break;
+        }
+        else if (j->getStationCompTimes()[k] != -1 && workstations[currentStation -1] <= j->getStationCompTimes()[k] && workstations[currentStation - 1] >= j->getStationTimes()[k] + j->getStationCompTimes()[k]){
+          //job will contain another job.
           overlap = true;
           break;
         }
@@ -207,9 +217,6 @@ bool outputTester(){
 
 
         //job start time at each station >= job available time
-        if (i > 210 && i < 215){
-            cout << availTime << " " << st1 << " " << st2 << " " << st3 << endl;
-        }
         if(st1 < availTime || st2 < availTime || st3 < availTime) {  cout << "Ivalid: Job " << (i + 1) << " starts before available" << endl; return false;}
 
         //store start times, with corresponding working times, we'll sort these later to make sure no jobs overlap at a single station
