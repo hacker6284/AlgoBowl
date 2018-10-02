@@ -12,6 +12,9 @@ bool outputTester();
 int algoBowlSolution(job *jobArrayUnsorted, int length);
 bool compareJobStartTimes(job *job1,job *job2);
 
+string inputFile = "test101.txt";
+string solutionFile = "solution.txt";
+
 int main() {
   cout << "Hello, world!" << endl;
 
@@ -20,7 +23,7 @@ int main() {
 
   //Reading In Info
   ifstream ifin;
-  ifin.open("test3stations.txt");
+  ifin.open(inputFile);
   if(!ifin.is_open()) cout << "Error opening input file initial" << endl;
   int numJobs;
   int numStations;
@@ -53,7 +56,7 @@ int main() {
 
   //Solution Printer
     ofstream fout;
-    fout.open("solution.txt");
+    fout.open(solutionFile);
     if (!fout.is_open()) cout << "Error opening output file" << endl;
 
   //double nested loop
@@ -188,8 +191,8 @@ bool outputTester(){
 
     //open input file as ifin, open solution file as ofin
     ifstream ifin, ofin;
-    ifin.open("test3stations.txt");
-    ofin.open("solution.txt");
+    ifin.open(inputFile);
+    ofin.open(solutionFile);
     if(!ifin.is_open()) cout << "Error opening input file verify" << endl;
     if(!ofin.is_open()) cout << "Error opening solution file" << endl;
 
