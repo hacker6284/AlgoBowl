@@ -180,9 +180,9 @@ int algoBowlSolution(job *jobArrayUnsorted, int length){
       timeToComplete = workstations[i];
     }
   }
-  //return timeToComplete - 1;
+  return timeToComplete - 1;
   //wrong line for testing below
-  return timeToComplete;
+  //return timeToComplete;
 }
 
 
@@ -272,6 +272,7 @@ bool outputTester(){
     //check for invalid time
     if(completionTime != lastJobFinishTime){
       cout << "Wrong completion time." << endl;
+      return false;
     }
 
     ifin.close();
