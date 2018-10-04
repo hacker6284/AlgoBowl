@@ -180,12 +180,16 @@ int algoBowlSolution(job *jobArrayUnsorted, int length){
       timeToComplete = workstations[i];
     }
   }
-  return timeToComplete - 1;
+  //return timeToComplete - 1;
+  //wrong line for testing below
+  return timeToComplete;
 }
 
 
 //function to test output files
 bool outputTester(){
+
+    int lastJobFinishTime = 0;
 
     int sum1(0), sum2(0), sum3(0), jobNumber(0), workstationNumber(0), completionTime(0);
 
@@ -208,6 +212,16 @@ bool outputTester(){
     for(int i = 0; i < jobNumber; i++){
         ifin >> availTime >> work1 >> work2 >> work3;
         ofin >> st1 >> st2 >> st3;
+
+        if (st1 + work1 > lastJobFinishTime){
+          lastJobFinishTime = st1 + work1;
+        }
+        if (st2 + work2 > lastJobFinishTime){
+          lastJobFinishTime = st2 + work2;
+        }
+        if (st3 + work3 > lastJobFinishTime){
+          lastJobFinishTime = st3 + work3;
+        }
 
         //No job working both stations at the same time
         int a = min(st1, st2);
@@ -255,6 +269,10 @@ bool outputTester(){
     //overall completion time >= max(sum job-times at each work station)
     if(completionTime < sum1 || completionTime < sum2 || completionTime < sum3){ cout << "Invalid: completed before physically possible based upon work time at each station" << endl; return false;}
 
+    //check for invalid time
+    if(completionTime != lastJobFinishTime){
+      cout << "Wrong completion time." << endl;
+    }
 
     ifin.close();
     ofin.close();
