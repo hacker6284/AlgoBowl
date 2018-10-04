@@ -271,7 +271,7 @@ bool outputTester(){
 
     //check for invalid time
     if(completionTime != lastJobFinishTime){
-      cout << "Wrong completion time." << endl;
+      cout << "Wrong completion time. Got " << completionTime << ", expected " << lastJobFinishTime << endl;
       return false;
     }
 
