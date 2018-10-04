@@ -10,7 +10,7 @@ using namespace std;
 void algoBowlInput();
 bool outputTester();
 int algoBowlSolution(job *jobArrayUnsorted, int length);
-bool compareJobStartTimes(job *job1,job *job2);
+bool compareJobStartTimes(job *job1, job *job2);
 
 string inputFile = "test101.txt";
 string solutionFile = "solution.txt";
@@ -180,7 +180,7 @@ int algoBowlSolution(job *jobArrayUnsorted, int length){
       timeToComplete = workstations[i];
     }
   }
-  return timeToComplete;
+  return timeToComplete - 1;
 }
 
 
