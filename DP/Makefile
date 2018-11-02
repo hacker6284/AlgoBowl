@@ -1,10 +1,10 @@
 CC=g++
 CFLAGS=-c -g -std=c++11
-SOURCES=main.cpp job.cpp
+SOURCES=main.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 LIBS=
 LDFLAGS=
-PROGRAM=algobowl
+PROGRAM=dp
 
 all: $(PROGRAM)
 
