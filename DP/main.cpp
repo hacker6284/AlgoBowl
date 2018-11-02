@@ -60,17 +60,27 @@ for(int j=numMonths-1; j>=0; --j){
   }
 }
 
+int minCost = solnCost[0][numMonths - 1];
+for (int i = 0; i < cities; i++){
+  if (solnCost[i][numMonths - 1] < minCost) {
+    minCost = solnCost[i][numMonths - 1];
+  }
+}
+
+cout << minCost << endl;
+
 for(int i = 0; i <numMonths; ++i){
-  if (traceBack[currCity][i] == 0){
+  if (solnList[i] == 0){
     cout << "NY ";
   }
-  if (traceBack[currCity][i] == 1){
+  if (solnList[i] == 1){
     cout << "LA ";
   }
-  if (traceBack[currCity][i] == 2){
+  if (solnList[i] == 2){
     cout << "DEN ";
   }
 }
+/*
 cout << endl << endl;
 for(int i =0; i <cities; ++i){
   for(int j=0; j<numMonths; ++j){
@@ -85,7 +95,7 @@ for(int i =0; i <cities; ++i){
   }
   cout << endl;
 }
-
+*/
   cout << endl;
  return 0;
 }
